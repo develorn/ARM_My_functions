@@ -1,0 +1,16 @@
+//dodac biblioteke dbgmcu -> w celu pracy krokowej dla trybu sleep mode
+DBGMCU_Config(DBGMCU_SLEEP, ENABLE);         //wlaczenie debuggowania w trybie uspienia  !! MUSI BYC JESLI PRACA KROKOWA  ! ! 
+RCC_Config(); 
+GPIO_Config();
+NVIC_Config();
+GPIO_ResetBits(GPIOC, GPIO_Pin_8 | GPIO_Pin_9);	
+NVIC_SystemLPConfig(NVIC_LP_SLEEPONEXIT, ENABLE); //tryb sleep mode
+__WFE(); //procek budzi sie tylko na przerwanie zewnetrzne. bez tego program wejdzie do main  i gdy 1x wlaczy sie 
+main()
+{
+	//tu nigdy nie wejdzie
+}
+EXTI()
+{
+	//tylko na przerwanie sie wlacza procek
+}
